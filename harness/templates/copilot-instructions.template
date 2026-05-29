@@ -1,0 +1,17 @@
+# Copilot Instructions - {{PROJECT_NAME}}
+
+Use the repository AI coding harness as the source of truth.
+
+Mandatory reading:
+
+{{CORE_DOCS}}
+
+Behavior sources:
+
+{{BEHAVIOR_SOURCES}}
+
+Before finalizing implementation, run:
+
+{{VERIFY_COMMANDS}}
+
+{{GENERATED_NOTICE}}

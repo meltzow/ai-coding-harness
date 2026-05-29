@@ -1,0 +1,54 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import json; print(json.dumps({'hookSpecificOutput': {'hookEventName': 'UserPromptSubmit', 'additionalContext': 'Use harness rules from harness/core/rules.md, harness/core/workflow.md, harness/core/quality-gates.md, harness/core/openspec-workflows.md, plus docs/ai/*. Spec first (OpenSpec + app-spec.yaml), then code. Enforce TDD and localization rules. Run ./harness/scripts/verify.sh before finishing.'}}))\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/pre-push-trivy.sh",
+            "timeout": 600
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/quality-gates.sh",
+            "timeout": 600
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/tdd-check.sh",
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/trivy-secrets.sh",
+            "timeout": 300
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/trivy-vuln.sh",
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  }
+}

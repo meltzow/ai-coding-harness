@@ -1,0 +1,15 @@
+# AI Harness Rules - {{PROJECT_NAME}}
+
+Read these canonical rule sources before implementation:
+
+{{CORE_DOCS}}
+
+Behavior sources:
+
+{{BEHAVIOR_SOURCES}}
+
+Run verification:
+
+{{VERIFY_COMMANDS}}
+
+{{GENERATED_NOTICE}}

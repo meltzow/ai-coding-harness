@@ -1,0 +1,52 @@
+project:
+  name: example-project
+  description: Tool-independent AI coding harness configuration.
+
+harness:
+  version: 0.1.0
+  root: harness
+  agent_entrypoint: AGENTS.md
+
+behavior_sources:
+  - app-spec.yaml
+  - openspec
+
+core_docs:
+  - harness/core/rules.md
+  - harness/core/workflow.md
+  - harness/core/quality-gates.md
+  - harness/core/openspec-workflows.md
+
+checks:
+  preflight:
+    - harness/scripts/preflight.sh
+  verify:
+    - scripts/ai/tdd-check.sh
+    - scripts/ai/quality-gates.sh
+    - scripts/ai/security-secrets.sh
+    - scripts/ai/security-vuln.sh
+
+templates:
+  agents: harness/templates/AGENTS.md.template
+  claude: harness/templates/CLAUDE.md.template
+  claude_full: harness/templates/claude
+  codex_openspec: harness/templates/codex/commands/openspec.md.template
+  cursor: harness/templates/cursor-rules.template
+  copilot: harness/templates/copilot-instructions.template
+
+adapters:
+  codex:
+    output: AGENTS.md
+    template: harness/templates/AGENTS.md.template
+  claude:
+    output: CLAUDE.md
+    template: harness/templates/CLAUDE.md.template
+
+policies:
+  requirements_first: true
+  plan_before_implementation: true
+  tests_before_or_with_implementation: true
+  verify_before_done: true
+  diff_summary_required: true
+  security_secret_scan: true
+  large_changes_require_reason: true

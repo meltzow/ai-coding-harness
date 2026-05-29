@@ -1,0 +1,21 @@
+# CLAUDE.md - {{PROJECT_NAME}}
+
+This file is a Claude adapter generated from the tool-independent AI coding
+harness.
+
+Canonical rules live in:
+
+{{CORE_DOCS}}
+
+Behavior sources:
+
+{{BEHAVIOR_SOURCES}}
+
+Claude-specific commands, hooks, and skills may be used as workflow helpers, but
+they must delegate to shared harness/project rules and checks where possible.
+
+Claude full-surface templates live under `harness/templates/claude/`.
+
+Use `./harness/scripts/verify.sh` before finishing implementation.
+
+{{GENERATED_NOTICE}}

@@ -1,0 +1,4 @@
+# Architecture Constraints Adapter
+
+Canonical architecture rules are in `docs/ai/rules.md`.
+Keep this file as compatibility-only for existing Claude paths.

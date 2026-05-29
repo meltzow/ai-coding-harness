@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+TOOL_INPUT="$(cat)"
+
+# Only intercept git push usage.
+if ! echo "$TOOL_INPUT" | python3 -c "
+import json, sys
+try:
+    payload = json.load(sys.stdin)
+    command = payload.get('command', '')
+    raise SystemExit(0 if 'git push' in command else 1)
+except Exception:
+    raise SystemExit(1)
+" >/dev/null 2>&1; then
+  exit 0
+fi
+
+if ! "$ROOT_DIR/scripts/ai/security-secrets.sh" >/dev/null 2>&1; then
+  echo "{\"decision\":\"block\",\"reason\":\"Shared security secret scan failed. Run scripts/ai/security-secrets.sh and fix findings before push.\"}"
+fi
+
+exit 0

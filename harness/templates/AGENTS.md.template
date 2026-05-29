@@ -1,0 +1,38 @@
+# Agent Instructions
+
+This file is generated from the AI coding harness. Use it as the cross-tool
+entrypoint for Codex, Claude, Cursor, Copilot, and other AI coding tools.
+
+Project: {{PROJECT_NAME}}
+
+## Mandatory Reading
+
+{{CORE_DOCS}}
+
+## Behavior Sources
+
+{{BEHAVIOR_SOURCES}}
+
+Update behavior sources before behavior-changing implementation.
+
+## Mandatory Gates
+
+- Requirements first
+- Plan before implementation
+- Tests before or with implementation
+- Verify before done
+- Diff summary required
+- Security/basic secret scan
+- No large changes without explicit justification
+
+## Mandatory Checks Before Finalizing
+
+{{VERIFY_COMMANDS}}
+
+Run `./harness/scripts/verify.sh` from the repository root for the complete
+configured verification flow.
+
+For OpenSpec workflows equivalent to Claude `/opsx:*` commands, read
+`harness/core/openspec-workflows.md`.
+
+{{GENERATED_NOTICE}}

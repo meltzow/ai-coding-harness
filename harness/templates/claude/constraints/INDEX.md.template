@@ -1,0 +1,10 @@
+# Constraints Adapter
+
+Canonical constraints moved to shared docs:
+
+- `docs/ai/README.md`
+- `docs/ai/rules.md`
+- `docs/ai/workflow.md`
+- `docs/ai/security.md`
+
+This file remains as a compatibility adapter for Claude-specific paths.
