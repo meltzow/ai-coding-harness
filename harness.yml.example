@@ -1,6 +1,6 @@
 project:
-  name: deck-ng
-  description: Flutter app managed with OpenSpec-first AI collaboration rules.
+  name: example-project
+  description: Tool-independent AI coding harness configuration.
 
 harness:
   version: 0.1.0
@@ -16,10 +16,6 @@ core_docs:
   - harness/core/workflow.md
   - harness/core/quality-gates.md
   - harness/core/openspec-workflows.md
-  - docs/ai/README.md
-  - docs/ai/rules.md
-  - docs/ai/workflow.md
-  - docs/ai/security.md
 
 checks:
   preflight:
@@ -42,17 +38,9 @@ adapters:
   codex:
     output: AGENTS.md
     template: harness/templates/AGENTS.md.template
-    generated_workflows: harness/generated/codex/openspec-workflows.md
   claude:
     output: CLAUDE.md
     template: harness/templates/CLAUDE.md.template
-    full_template_root: harness/templates/claude
-  cursor:
-    output: .cursor/rules/ai-harness.md
-    template: harness/templates/cursor-rules.template
-  copilot:
-    output: .github/copilot-instructions.md
-    template: harness/templates/copilot-instructions.template
 
 policies:
   requirements_first: true
