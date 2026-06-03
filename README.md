@@ -58,17 +58,28 @@ responses or human review.
 
 ## Reuse In Other Repositories
 
-Copy or package these parts:
+Use a Git submodule as the default integration method. A submodule keeps the
+shared harness pinned to an explicit upstream commit while making updates
+reviewable across repositories.
 
-- Reusable: `harness/core`, `harness/templates`, `harness/scripts`,
-  `harness/adapters`, and `harness/examples`.
-- Project-specific: root `harness.yml`, existing project docs, existing
-  project-specific check scripts, and generated adapter outputs such as
-  `AGENTS.md` or `CLAUDE.md`.
+Recommended setup:
 
-For multi-repo use, this harness can later be managed as a Git submodule,
-internal package, or vendored directory. Keep repo-specific commands and file
-paths in `harness.yml` so the core remains portable.
+```bash
+git submodule add git@github.com:meltzow/ai-coding-harness.git harness
+git commit -m "Add AI coding harness submodule"
+```
+
+Keep these parts project-specific in the consuming repository:
+
+- Root `harness.yml`
+- Existing project docs referenced by `harness.yml`
+- Existing project-specific check scripts
+- Generated adapter outputs such as `AGENTS.md` or `CLAUDE.md`
+
+For repositories that cannot use submodules, the reusable harness parts can be
+packaged or vendored instead: `harness/core`, `harness/templates`,
+`harness/scripts`, `harness/adapters`, and `harness/examples`. Keep repo-specific
+commands and file paths in `harness.yml` so the core remains portable.
 
 ## Design Rules
 
