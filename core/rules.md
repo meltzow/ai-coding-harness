@@ -27,7 +27,12 @@ and future adapters.
 
 ## Testing
 
-- Tests are required before or alongside implementation.
+- Tests are required before implementation for behavior changes.
+- Run the focused test and confirm it fails for the expected reason before
+  implementation starts.
+- Implementation should be the smallest change needed to turn that focused test
+  green.
+- Rerun the same focused test and confirm it passes before broad verification.
 - Placeholder tests are not acceptable. Tests must assert real behavior.
 - If a test cannot be added, document the reason and residual risk.
 

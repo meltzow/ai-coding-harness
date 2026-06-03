@@ -31,7 +31,7 @@ checks own the rules. Claude-specific hook wiring remains adapter-only.
 
 - Requirements/specs first.
 - Plan before implementation.
-- Tests before or with implementation.
+- Red-green TDD for behavior changes.
 - Verify before done.
 - Diff summary required.
 - Secret/security scan before finalizing.

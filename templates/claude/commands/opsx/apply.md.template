@@ -64,7 +64,10 @@ Implement tasks from an OpenSpec change.
 
    For each pending task:
    - Show which task is being worked on
-   - Make the code changes required
+   - Add or update the smallest focused test for the task behavior
+   - Run the focused test and confirm it fails for the expected reason
+   - Make the smallest code change required to pass that focused test
+   - Rerun the same focused test and confirm it passes
    - Keep changes minimal and focused
    - Mark task complete in the tasks file: `- [ ]` → `- [x]`
    - Continue to next task

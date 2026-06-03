@@ -32,6 +32,12 @@ Use when implementing an existing OpenSpec change.
 - Read `openspec instructions apply --change "<name>" --json`.
 - Read all listed context files before editing code.
 - Implement pending tasks in small steps.
+- For each behavior-changing task, add or update the focused test first.
+- Run the focused test and confirm it fails for the expected reason before
+  product code edits.
+- Implement the smallest change needed to pass the focused test.
+- Rerun the same focused test and confirm it passes before marking the task
+  complete.
 - Mark task checkboxes complete immediately after each completed task.
 - Pause if the task is unclear, design is invalidated, or a blocker appears.
 

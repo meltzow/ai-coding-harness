@@ -45,7 +45,7 @@ adapters:
 policies:
   requirements_first: true
   plan_before_implementation: true
-  tests_before_or_with_implementation: true
+  red_green_tdd: true
   verify_before_done: true
   diff_summary_required: true
   security_secret_scan: true

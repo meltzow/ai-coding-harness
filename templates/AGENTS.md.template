@@ -19,7 +19,7 @@ Update behavior sources before behavior-changing implementation.
 
 - Requirements first
 - Plan before implementation
-- Tests before or with implementation
+- Red-green TDD for behavior changes
 - Verify before done
 - Diff summary required
 - Security/basic secret scan

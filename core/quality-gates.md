@@ -4,7 +4,7 @@ The harness supports these gates through `harness.yml` and project scripts:
 
 - Requirements first
 - Plan before implementation
-- Tests before or with implementation
+- Red-green TDD for behavior changes
 - Verify before done
 - Diff summary required
 - Security/basic secret scan
@@ -19,5 +19,8 @@ canonical policy.
 ## Expected Command Flow
 
 - `harness/scripts/preflight.sh` checks harness structure and configuration.
+- Focused tests are run after adding or updating them to confirm the red step.
+- The same focused tests are rerun after implementation to confirm the green
+  step.
 - `harness/scripts/verify.sh` runs preflight and configured project checks.
 - `harness/scripts/diff-review.sh` prints a review-focused diff summary.
