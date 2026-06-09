@@ -71,6 +71,7 @@ for required in \
   harness/templates/copilot-instructions.template \
   harness/scripts/verify.sh \
   harness/scripts/preflight.sh \
+  harness/scripts/test-codex-stop-check.sh \
   harness/scripts/generate-agent-files.sh \
   harness/scripts/diff-review.sh
 do
@@ -96,11 +97,13 @@ while IFS= read -r cmd; do
 done < <(nested_list checks verify)
 
 bash -n harness/scripts/preflight.sh
+bash -n harness/scripts/test-codex-stop-check.sh
 bash -n harness/scripts/verify.sh
 bash -n harness/scripts/generate-agent-files.sh
 bash -n harness/scripts/diff-review.sh
 for hook_template in harness/templates/codex/hooks/*.sh.template; do
   bash -n "$hook_template"
 done
+"$ROOT_DIR/harness/scripts/test-codex-stop-check.sh"
 
 echo "Harness preflight passed"

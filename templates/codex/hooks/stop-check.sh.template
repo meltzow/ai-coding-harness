@@ -55,10 +55,7 @@ if payload.get("stop_hook_active"):
     }))
 else:
     print(json.dumps({
-        "hookSpecificOutput": {
-            "hookEventName": "Stop",
-            "decision": "block",
-            "reason": reason,
-        }
+        "decision": "block",
+        "reason": reason,
     }))
 PY
