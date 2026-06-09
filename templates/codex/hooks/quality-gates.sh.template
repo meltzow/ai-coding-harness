@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+exec "$ROOT_DIR/.codex/hooks/stop-check.sh" "Quality gates" "$ROOT_DIR/scripts/ai/quality-gates.sh" "$@"

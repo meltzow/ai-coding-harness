@@ -43,8 +43,9 @@ configured commands.
 underlying check is responsible for explaining the skip.
 
 `generate-agent-files.sh` renders `AGENTS.md` by default. Use
-`--adapter claude`, `--adapter cursor`, `--adapter copilot`, or `--all` to render
-additional adapter outputs from the same sources.
+`--adapter claude`, `--adapter codex-full`, `--adapter cursor`,
+`--adapter copilot`, or `--all` to render additional adapter outputs from the
+same sources.
 
 Use `--adapter claude-full` to render the complete Claude surface from harness
 templates: `CLAUDE.md`, `.claude/settings.json`, `.claude/hooks`,
@@ -52,6 +53,9 @@ templates: `CLAUDE.md`, `.claude/settings.json`, `.claude/hooks`,
 
 Use `--adapter codex-openspec` to generate the Codex-facing OpenSpec workflow
 reference at `harness/generated/codex/openspec-workflows.md`.
+
+Use `--adapter codex-full` to render the Codex hook surface from harness
+templates: `.codex/hooks.json` and `.codex/hooks`.
 
 `diff-review.sh` prints a compact status and diff summary suitable for final AI
 responses or human review.
@@ -96,5 +100,5 @@ commands and file paths in `harness.yml` so the core remains portable.
 
 - Add a richer YAML parser if nested command metadata becomes necessary.
 - Add an install/update command for sharing the harness across repositories.
-- Add optional generated `.claude/settings.json` hook templates if desired.
+- Add optional generated hook templates for additional tools if desired.
 - Add CI examples for repositories that do not already have their own checks.

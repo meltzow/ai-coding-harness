@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CHECK_NAME="${1:?check name is required}"
+shift
+
+HOOK_INPUT="$(cat || true)"
+OUTPUT_FILE="$(mktemp "${TMPDIR:-/tmp}/codex-stop-check.XXXXXX")"
+trap 'rm -f "$OUTPUT_FILE"' EXIT
+
+if "$@" >"$OUTPUT_FILE" 2>&1; then
+  exit 0
+else
+  STATUS="$?"
+fi
+
+export CHECK_NAME STATUS HOOK_INPUT OUTPUT_FILE
+python3 - <<'PY'
+import json
+import os
+
+check_name = os.environ["CHECK_NAME"]
+status = os.environ["STATUS"]
+hook_input = os.environ.get("HOOK_INPUT", "")
+output_file = os.environ["OUTPUT_FILE"]
+
+try:
+    with open(output_file, "r", encoding="utf-8", errors="replace") as handle:
+        output = handle.read()
+except OSError as exc:
+    output = f"Could not read captured hook output: {exc}"
+
+try:
+    payload = json.loads(hook_input) if hook_input.strip() else {}
+except json.JSONDecodeError:
+    payload = {}
+
+summary = output.strip()
+if len(summary) > 6000:
+    summary = summary[:6000] + "\n... output truncated ..."
+
+reason = (
+    f"{check_name} failed with exit code {status}. "
+    "Fix the reported issue, then run the check again."
+)
+if summary:
+    reason = f"{reason}\n\n{summary}"
+
+if payload.get("stop_hook_active"):
+    print(json.dumps({
+        "systemMessage": (
+            f"{check_name} is still failing, but the Stop hook is already "
+            "active. Not blocking again to avoid an infinite loop."
+        )
+    }))
+else:
+    print(json.dumps({
+        "hookSpecificOutput": {
+            "hookEventName": "Stop",
+            "decision": "block",
+            "reason": reason,
+        }
+    }))
+PY

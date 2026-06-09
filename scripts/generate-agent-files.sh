@@ -13,7 +13,7 @@ ADAPTER="agents"
 
 usage() {
   cat <<'USAGE'
-Usage: harness/scripts/generate-agent-files.sh [--adapter agents|claude|claude-full|codex-openspec|cursor|copilot] [--all]
+Usage: harness/scripts/generate-agent-files.sh [--adapter agents|claude|claude-full|codex-full|codex-openspec|cursor|copilot] [--all]
 USAGE
 }
 
@@ -173,6 +173,16 @@ generate_adapter() {
     codex-openspec)
       render "harness/templates/codex/commands/openspec.md.template" "harness/generated/codex/openspec-workflows.md"
       ;;
+    codex-full)
+      render "harness/templates/codex/hooks.json.template" ".codex/hooks.json"
+      render "harness/templates/codex/hooks/pre-push-trivy.sh.template" ".codex/hooks/pre-push-trivy.sh"
+      render "harness/templates/codex/hooks/stop-check.sh.template" ".codex/hooks/stop-check.sh"
+      render "harness/templates/codex/hooks/quality-gates.sh.template" ".codex/hooks/quality-gates.sh"
+      render "harness/templates/codex/hooks/tdd-check.sh.template" ".codex/hooks/tdd-check.sh"
+      render "harness/templates/codex/hooks/trivy-secrets.sh.template" ".codex/hooks/trivy-secrets.sh"
+      render "harness/templates/codex/hooks/trivy-vuln.sh.template" ".codex/hooks/trivy-vuln.sh"
+      chmod +x .codex/hooks/pre-push-trivy.sh .codex/hooks/stop-check.sh .codex/hooks/quality-gates.sh .codex/hooks/tdd-check.sh .codex/hooks/trivy-secrets.sh .codex/hooks/trivy-vuln.sh
+      ;;
     cursor)
       render "harness/templates/cursor-rules.template" ".cursor/rules/ai-harness.md"
       ;;
@@ -189,6 +199,7 @@ generate_adapter() {
 if [ "$ADAPTER" = "all" ]; then
   generate_adapter agents
   generate_adapter claude-full
+  generate_adapter codex-full
   generate_adapter codex-openspec
   generate_adapter cursor
   generate_adapter copilot

@@ -30,6 +30,7 @@ templates:
   agents: harness/templates/AGENTS.md.template
   claude: harness/templates/CLAUDE.md.template
   claude_full: harness/templates/claude
+  codex_full: harness/templates/codex
   codex_openspec: harness/templates/codex/commands/openspec.md.template
   cursor: harness/templates/cursor-rules.template
   copilot: harness/templates/copilot-instructions.template
@@ -38,6 +39,7 @@ adapters:
   codex:
     output: AGENTS.md
     template: harness/templates/AGENTS.md.template
+    hooks: harness/templates/codex/hooks.json.template
   claude:
     output: CLAUDE.md
     template: harness/templates/CLAUDE.md.template

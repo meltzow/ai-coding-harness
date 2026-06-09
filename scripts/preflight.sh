@@ -65,6 +65,7 @@ for required in \
   harness/templates/AGENTS.md.template \
   harness/templates/CLAUDE.md.template \
   harness/templates/claude/settings.json.template \
+  harness/templates/codex/hooks.json.template \
   harness/templates/codex/commands/openspec.md.template \
   harness/templates/cursor-rules.template \
   harness/templates/copilot-instructions.template \
@@ -98,5 +99,8 @@ bash -n harness/scripts/preflight.sh
 bash -n harness/scripts/verify.sh
 bash -n harness/scripts/generate-agent-files.sh
 bash -n harness/scripts/diff-review.sh
+for hook_template in harness/templates/codex/hooks/*.sh.template; do
+  bash -n "$hook_template"
+done
 
 echo "Harness preflight passed"
