@@ -11,13 +11,15 @@ Canonical workflow:
 
 Behavior sources:
 
+- `app-spec.yaml`
+- `openspec`
 - `README.md`
 - `docs/winahnen-nextcloud-mvp.md`
 - `docs/winahnen-validation.md`
 - `docs/nextcloud-development-environment.md`
 - `docs/implementation-status.md`
 
-Spec mode: optional. Treat the configured behavior sources as the active requirements/specification source. Use OpenSpec workflows only when an OpenSpec tree/change exists or the user explicitly asks to create one.
+Spec mode: openspec. Treat the configured OpenSpec artifacts and app spec as the active requirements/specification source. Use OpenSpec propose/apply/archive workflows for behavior-changing work.
 
 Equivalent Claude UX:
 
