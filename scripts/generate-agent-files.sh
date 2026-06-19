@@ -99,11 +99,30 @@ bullet_list() {
 
 PROJECT_NAME="$(config_value project name)"
 [ -n "$PROJECT_NAME" ] || PROJECT_NAME="unknown-project"
+SPEC_MODE="$(config_value spec mode)"
+[ -n "$SPEC_MODE" ] || SPEC_MODE="optional"
 
 CORE_DOCS="$(section_list core_docs | bullet_list)"
 BEHAVIOR_SOURCES="$(section_list behavior_sources | bullet_list)"
 VERIFY_COMMANDS="$(nested_list checks verify | bullet_list)"
 GENERATED_NOTICE="Generated from harness.yml and harness/templates. Edit harness sources, then regenerate."
+
+case "$SPEC_MODE" in
+  markdown)
+    SPEC_GUIDANCE="Spec mode: markdown. Treat the configured behavior sources as the active requirements/specification source. OpenSpec workflows are available only if explicitly requested for this repository."
+    ;;
+  openspec)
+    SPEC_GUIDANCE="Spec mode: openspec. Treat the configured OpenSpec artifacts and app spec as the active requirements/specification source. Use OpenSpec propose/apply/archive workflows for behavior-changing work."
+    ;;
+  optional)
+    SPEC_GUIDANCE="Spec mode: optional. Treat the configured behavior sources as the active requirements/specification source. Use OpenSpec workflows only when an OpenSpec tree/change exists or the user explicitly asks to create one."
+    ;;
+  *)
+    echo "generate failed: unsupported spec.mode '$SPEC_MODE' in $CONFIG" >&2
+    echo "supported values: markdown, optional, openspec" >&2
+    exit 2
+    ;;
+esac
 
 render() {
   local template="$1"
@@ -119,18 +138,22 @@ render() {
   : > "$output"
   while IFS= read -r line || [ -n "$line" ]; do
     case "$line" in
-      *"{{CORE_DOCS}}"*)
+      "{{CORE_DOCS}}")
         printf '%s\n' "$CORE_DOCS" >> "$output"
         ;;
-      *"{{BEHAVIOR_SOURCES}}"*)
+      "{{BEHAVIOR_SOURCES}}")
         printf '%s\n' "$BEHAVIOR_SOURCES" >> "$output"
         ;;
-      *"{{VERIFY_COMMANDS}}"*)
+      "{{VERIFY_COMMANDS}}")
         printf '%s\n' "$VERIFY_COMMANDS" >> "$output"
+        ;;
+      "{{SPEC_GUIDANCE}}")
+        printf '%s\n' "$SPEC_GUIDANCE" >> "$output"
         ;;
       *)
         line="${line//\{\{PROJECT_NAME\}\}/$PROJECT_NAME}"
         line="${line//\{\{GENERATED_NOTICE\}\}/$GENERATED_NOTICE}"
+        line="${line//\{\{SPEC_GUIDANCE\}\}/$SPEC_GUIDANCE}"
         printf '%s\n' "$line" >> "$output"
         ;;
     esac

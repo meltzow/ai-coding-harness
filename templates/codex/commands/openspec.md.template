@@ -13,6 +13,8 @@ Behavior sources:
 
 {{BEHAVIOR_SOURCES}}
 
+{{SPEC_GUIDANCE}}
+
 Equivalent Claude UX:
 
 - `/opsx:explore` -> Explore workflow
@@ -20,7 +22,7 @@ Equivalent Claude UX:
 - `/opsx:apply` -> Apply workflow
 - `/opsx:archive` -> Archive workflow
 
-Before implementation, read the active OpenSpec artifacts. Before finishing, run
-`./harness/scripts/verify.sh`.
+Before implementation, read the active requirements/specification artifacts for
+the configured spec mode. Before finishing, run `./harness/scripts/verify.sh`.
 
 {{GENERATED_NOTICE}}

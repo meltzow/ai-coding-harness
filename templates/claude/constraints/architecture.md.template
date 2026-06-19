@@ -1,4 +1,12 @@
 # Architecture Constraints Adapter
 
-Canonical architecture rules are in `docs/ai/rules.md`.
+Canonical architecture and behavior rules are in the configured core docs and
+behavior sources:
+
+{{CORE_DOCS}}
+
+{{BEHAVIOR_SOURCES}}
+
+{{SPEC_GUIDANCE}}
+
 Keep this file as compatibility-only for existing Claude paths.

@@ -1,10 +1,15 @@
 # Constraints Adapter
 
-Canonical constraints moved to shared docs:
+Canonical constraints are configured in `harness.yml`.
 
-- `docs/ai/README.md`
-- `docs/ai/rules.md`
-- `docs/ai/workflow.md`
-- `docs/ai/security.md`
+Core docs:
+
+{{CORE_DOCS}}
+
+Behavior sources:
+
+{{BEHAVIOR_SOURCES}}
+
+{{SPEC_GUIDANCE}}
 
 This file remains as a compatibility adapter for Claude-specific paths.

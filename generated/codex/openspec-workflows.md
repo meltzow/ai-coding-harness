@@ -1,4 +1,4 @@
-# Codex OpenSpec Workflows - deck-ng
+# Codex OpenSpec Workflows - anchestral
 
 Codex does not use Claude slash commands, but it should follow the same OpenSpec
 workflows.
@@ -11,8 +11,13 @@ Canonical workflow:
 
 Behavior sources:
 
-- `app-spec.yaml`
-- `openspec`
+- `README.md`
+- `docs/winahnen-nextcloud-mvp.md`
+- `docs/winahnen-validation.md`
+- `docs/nextcloud-development-environment.md`
+- `docs/implementation-status.md`
+
+Spec mode: optional. Treat the configured behavior sources as the active requirements/specification source. Use OpenSpec workflows only when an OpenSpec tree/change exists or the user explicitly asks to create one.
 
 Equivalent Claude UX:
 
@@ -21,7 +26,7 @@ Equivalent Claude UX:
 - `/opsx:apply` -> Apply workflow
 - `/opsx:archive` -> Archive workflow
 
-Before implementation, read the active OpenSpec artifacts. Before finishing, run
-`./harness/scripts/verify.sh`.
+Before implementation, read the active requirements/specification artifacts for
+the configured spec mode. Before finishing, run `./harness/scripts/verify.sh`.
 
 Generated from harness.yml and harness/templates. Edit harness sources, then regenerate.

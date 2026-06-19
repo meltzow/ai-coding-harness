@@ -1,4 +1,10 @@
 # Code Quality Constraints Adapter
 
-Canonical code quality rules are in `docs/ai/rules.md`.
-Canonical execution workflow is in `docs/ai/workflow.md`.
+Canonical code quality rules and execution workflow are in the configured core
+docs and behavior sources:
+
+{{CORE_DOCS}}
+
+{{BEHAVIOR_SOURCES}}
+
+{{SPEC_GUIDANCE}}

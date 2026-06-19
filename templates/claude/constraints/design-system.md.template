@@ -1,3 +1,7 @@
 # Design System Constraints Adapter
 
-Canonical UI and design constraints are in `docs/ai/rules.md`.
+Canonical UI and design constraints are in the configured behavior sources:
+
+{{BEHAVIOR_SOURCES}}
+
+{{SPEC_GUIDANCE}}

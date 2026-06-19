@@ -7,9 +7,16 @@ harness:
   root: harness
   agent_entrypoint: AGENTS.md
 
+spec:
+  # markdown: use project docs as the active requirements/spec source.
+  # optional: use project docs now; enable OpenSpec only when requested.
+  # openspec: use app-spec.yaml plus openspec/ as the active spec source.
+  mode: optional
+  app_spec: app-spec.yaml
+  openspec_dir: openspec
+
 behavior_sources:
-  - app-spec.yaml
-  - openspec
+  - README.md
 
 core_docs:
   - harness/core/rules.md

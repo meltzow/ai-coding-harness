@@ -1,3 +1,7 @@
 # Localization Constraints Adapter
 
-Canonical localization constraints are in `docs/ai/rules.md`.
+Canonical localization constraints are in the configured behavior sources:
+
+{{BEHAVIOR_SOURCES}}
+
+{{SPEC_GUIDANCE}}

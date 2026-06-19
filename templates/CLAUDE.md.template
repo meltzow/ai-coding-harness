@@ -11,6 +11,8 @@ Behavior sources:
 
 {{BEHAVIOR_SOURCES}}
 
+{{SPEC_GUIDANCE}}
+
 Claude-specific commands, hooks, and skills may be used as workflow helpers, but
 they must delegate to shared harness/project rules and checks where possible.
 

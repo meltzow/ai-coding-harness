@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -c \"import json; print(json.dumps({'hookSpecificOutput': {'hookEventName': 'UserPromptSubmit', 'additionalContext': 'Use harness rules from harness/core/rules.md, harness/core/workflow.md, harness/core/quality-gates.md, harness/core/openspec-workflows.md, plus docs/ai/*. Spec first (OpenSpec + app-spec.yaml), then code. Enforce TDD and localization rules. Run ./harness/scripts/verify.sh before finishing.'}}))\"",
+            "command": "python3 -c \"import json; print(json.dumps({'hookSpecificOutput': {'hookEventName': 'UserPromptSubmit', 'additionalContext': 'Use harness rules from harness/core/rules.md, harness/core/workflow.md, harness/core/quality-gates.md, and harness/core/openspec-workflows.md. Use the behavior sources configured in harness.yml. {{SPEC_GUIDANCE}} Run ./harness/scripts/verify.sh before finishing.'}}))\"",
             "timeout": 5
           }
         ]

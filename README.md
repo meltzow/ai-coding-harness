@@ -17,8 +17,8 @@ adapters.
 
 ## Current Project Mapping
 
-This repository keeps existing shared project rules in `docs/ai/*` and existing
-checks in `scripts/ai/*`. The harness references those files instead of
+Each consuming repository owns its project mapping in the root `harness.yml`.
+The harness references configured behavior sources and check scripts instead of
 duplicating their implementation.
 
 Claude-specific compatibility files are intentionally isolated in `CLAUDE.md`
@@ -31,6 +31,7 @@ From the repository root:
 ```bash
 ./harness/scripts/preflight.sh
 ./harness/scripts/verify.sh
+./harness/scripts/init-repo.sh
 ./harness/scripts/generate-agent-files.sh
 ./harness/scripts/diff-review.sh
 ```
@@ -57,6 +58,24 @@ reference at `harness/generated/codex/openspec-workflows.md`.
 Use `--adapter codex-full` to render the Codex hook surface from harness
 templates: `.codex/hooks.json` and `.codex/hooks`.
 
+`init-repo.sh` initializes or updates the repo-local `harness.yml` spec mode.
+When run interactively it asks whether the repository should use Markdown/docs,
+optional OpenSpec, or active OpenSpec. For automation, pass one of:
+
+```bash
+./harness/scripts/init-repo.sh --spec-mode markdown
+./harness/scripts/init-repo.sh --spec-mode optional
+./harness/scripts/init-repo.sh --spec-mode openspec
+```
+
+Spec modes:
+
+- `markdown`: configured project docs are the active requirements/spec source.
+- `optional`: configured project docs are active now; OpenSpec workflows remain
+  available when a repo later creates an OpenSpec tree or the user asks for one.
+- `openspec`: `app-spec.yaml` and `openspec/` are the active spec source. The
+  init script creates a minimal scaffold when missing.
+
 `diff-review.sh` prints a compact status and diff summary suitable for final AI
 responses or human review.
 
@@ -75,13 +94,16 @@ git commit -m "Add AI coding harness submodule"
 
 After adding the submodule, install the repo-local harness surface:
 
-1. Create a root `harness.yml` from `harness/examples/harness.yml.example`.
-2. Replace the example `project.name`, `behavior_sources`, and
+1. Run `./harness/scripts/init-repo.sh` and choose the spec mode, or pass
+   `--spec-mode markdown`, `--spec-mode optional`, or `--spec-mode openspec`
+   for non-interactive setup.
+2. Replace or refine the generated `project.name`, `behavior_sources`, and
    `checks.verify` entries with paths that exist in the consuming repository.
 3. Add project-local check scripts such as `scripts/ai/quality-gates.sh`,
    `scripts/ai/tdd-check.sh`, `scripts/ai/security-secrets.sh`, and
    `scripts/ai/security-vuln.sh` when the selected adapters reference them.
-4. Generate adapter outputs from the repository root:
+4. Generate adapter outputs from the repository root if `init-repo.sh` was run
+   with `--no-generate`:
 
    ```bash
    ./harness/scripts/generate-agent-files.sh --all
@@ -117,10 +139,11 @@ For a new repository with no harness yet:
 
 ```text
 Install git@github.com:meltzow/ai-coding-harness.git as a Git submodule at
-harness/. Add a repo-specific harness.yml from the example, wire it to the
-existing project docs and verification commands, generate all adapter outputs,
-run ./harness/scripts/verify.sh, and leave unrelated working tree changes
-untouched.
+harness/. Run ./harness/scripts/init-repo.sh and answer whether this repository
+should use Markdown/docs, optional OpenSpec, or active OpenSpec. Wire the
+generated harness.yml to the existing project docs and verification commands,
+generate all adapter outputs if needed, run ./harness/scripts/verify.sh, and
+leave unrelated working tree changes untouched.
 ```
 
 For a repository where `harness/` already exists:
@@ -128,10 +151,10 @@ For a repository where `harness/` already exists:
 ```text
 Install the new harness from the harness directory. Treat harness/ as the shared
 harness source, create or update the root harness.yml for this repository,
-generate the adapter outputs with ./harness/scripts/generate-agent-files.sh
---all, add any missing scripts/ai check wrappers required by the generated
-hooks, run ./harness/scripts/verify.sh, and keep unrelated local changes
-untouched.
+run ./harness/scripts/init-repo.sh to choose or confirm the spec mode, generate
+the adapter outputs with ./harness/scripts/generate-agent-files.sh --all, add
+any missing scripts/ai check wrappers required by the generated hooks, run
+./harness/scripts/verify.sh, and keep unrelated local changes untouched.
 ```
 
 For an update to a newer harness commit:
@@ -139,7 +162,8 @@ For an update to a newer harness commit:
 ```text
 Update the harness submodule to the current upstream main branch, regenerate
 repo-local adapter outputs, update harness.yml only if the new harness requires
-it, run ./harness/scripts/verify.sh, and keep the submodule commit separate from
+it, do not change the existing spec mode unless explicitly requested, run
+./harness/scripts/verify.sh, and keep the submodule commit separate from
 unrelated project changes.
 ```
 

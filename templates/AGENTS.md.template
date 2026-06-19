@@ -13,6 +13,8 @@ Project: {{PROJECT_NAME}}
 
 {{BEHAVIOR_SOURCES}}
 
+{{SPEC_GUIDANCE}}
+
 Update behavior sources before behavior-changing implementation.
 
 ## Mandatory Gates
